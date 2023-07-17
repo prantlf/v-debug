@@ -1,0 +1,16 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/color_test": true,
+    "**/color_test.dSYM": true,
+    "**/config_test": true,
+    "**/config_test.dSYM": true,
+    "**/debug_test": true,
+    "**/debug_test.dSYM": true,
+    "**/log_test": true,
+    "**/log_test.dSYM": true,
+    "**/time_test": true,
+    "**/time_test.dSYM": true
+  }
+}
