@@ -37,15 +37,17 @@ If the current terminal supports colours, they will be used them emphasize the l
     test Creating file "text.txt" +0ms
     test Done +21ms
 
-If the standard error doesn't support colours, the date and time of the log message will be printed in front of the log message.
+If the standard error doesn't support colours, the date and time of the log message will be printed in front of the log message. When inspecting a log file later, times of log entry messages can't be related to the execution time any more.
 
-    2023-07-16 23:50:56:801 Creating file "text.txt"
-    2023-07-16 23:50:56:822 Done
+    2023-07-16 23:50:56:801 test Creating file "text.txt"
+    2023-07-16 23:50:56:822 test Done
 
 Setting the environment variable `DEBUG_HIDE_DATE` will omit the date and time from the log message, if colours aren't supported.
 
-    Creating file "text.txt"
-    Done
+    test Creating file "text.txt"
+    test Done
+
+If the log message contains line breaks, they will be preserved. All lines Such log message will be prefixed by the logging instance name and optional time and one suffix (optoinal duration) and the lines will be left aligned by spaces to start at the same column.
 
 ## Configuration
 
@@ -110,7 +112,7 @@ Checks if the debug logging is enabled in this instance. The `log` method doesn'
 if d.is_enabled() {
   config_name := 'config.yaml'
   config := os.read_file(config_name)!
-  d.log('Configuration from "%s":\n%s', config_name, config)
+  d.log_str('Configuration from "${config_name}":\n${config}')
 }
 ```
 
@@ -155,6 +157,47 @@ Prints a log message to the standard error if the debug logging is enabled in th
 ```go
 d.log_str('Looking for the ultimate question')
 ```
+
+### Debug.rwd(path string) string
+
+Returns a path relative to the current working directory, if the debug logging is enabled in this instance. Otherwise it will return an empty string. Also, if the current terminal doesn't support colours, this method will always return the input, absolute path. Paths in log files are supposed to be absolute. See the static `rwd` below for more information.
+
+```go
+dfile_name := d.rwd(file_name)
+d.log('Creating file "%s"', dfile_name)
+```
+
+### rwd(path string) string
+
+Returns a path relative to the current working directory for logging purposes. It can be used to put shorter paths to log and error messages, which will make them easier to follow.
+
+```go
+return error('Creating file "${debug.rwd(file_name)}" failed')
+```
+
+If the input path isn't based on the current working directory, but the parent path is, the result can still be returned as a relative path, if the current working directory is only one or two parent paths farther from the common root directory, common to both the input path and the current working directory.
+
+    path: /Users/prantlf/Sources/v-debug
+    cwd:  /Users/prantlf/Sources/v-debug
+    rwd:  .
+
+    path: /Users/prantlf/Sources/v-debug/src
+    cwd:  /Users/prantlf/Sources/v-debug
+    rwd:  ./src
+
+    path: /Users/prantlf/Sources
+    cwd:  /Users/prantlf/Sources/v-debug
+    rwd:  ./..
+
+    path: /Users/prantlf/Sources/v-cargs
+    cwd:  /Users/prantlf/Sources/v-debug
+    rwd:  ./../v-cargs
+
+    path: /Users/other
+    cwd:  /Users/prantlf/Sources/v-debug
+    rwd:  /Users/other
+
+The length of the path fragment to the common directory root can be controlled by the environment variable `DEBUG_REL_PATH`. If set to an empty string, logging relative paths will be disabled. If set to a zero, input paths will have to start with the current working directory to be considered relative. If set to a number greater than zero, the common relative root will be movable to the specified number of directories below the common directory, which may include one or more `'..'` parts in the output relative path.
 
 [VPM]: https://vpm.vlang.io/packages/prantlf.jany
 [debug at NPM]: https://www.npmjs.com/package/debug

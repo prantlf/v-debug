@@ -1,6 +1,6 @@
 module debug
 
-import os { getenv }
+import os { getenv, getenv_opt }
 
 #include <errno.h>
 #include <fcntl.h>
@@ -18,6 +18,10 @@ struct Config {
 }
 
 const config = configure()
+
+const show_date = !has_env('DEBUG_HIDE_DATE')
+
+const rel_len = detect_rel_path()
 
 pub fn (d &Debug) is_enabled() bool {
 	return d.enabled
@@ -104,4 +108,13 @@ fn split_name(name string) (Name, bool) {
 		main: parts[0]
 		layer: layer
 	}, on
+}
+
+fn detect_rel_path() int {
+	len := getenv_opt('DEBUG_REL_PATH') or { '2' }
+	return if len.len > 0 {
+		len.int()
+	} else {
+		-1
+	}
 }

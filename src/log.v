@@ -21,10 +21,10 @@ pub fn (mut d Debug) log_str(s string) {
 
 fn (mut d Debug) do_log(s string) {
 	mut builder := new_builder(80)
-	if d.color.len == 0 {
-		d.write_without_colors(s, mut builder)
-	} else {
+	if color_support > 0 {
 		d.write_with_colors(s, mut builder)
+	} else {
+		d.write_without_colors(s, mut builder)
 	}
 	builder.write_u8(`\n`)
 	write_out(builder.data, builder.len)
@@ -33,8 +33,11 @@ fn (mut d Debug) do_log(s string) {
 fn (d &Debug) write_without_colors(s string, mut builder Builder) {
 	stamp := now()
 	name := d.name
+
 	write_separator := fn [name, stamp] (mut builder Builder) {
-		write_now(stamp, mut builder)
+		if show_date {
+			write_now(stamp, mut builder)
+		}
 		builder.write_string(name)
 		builder.write_u8(` `)
 	}

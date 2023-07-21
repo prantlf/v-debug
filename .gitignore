@@ -5,6 +5,8 @@ config_test
 config_test.dSYM
 debug_test
 debug_test.dSYM
+directory_test
+directory_test.dSYM
 log_test
 log_test.dSYM
 time_test

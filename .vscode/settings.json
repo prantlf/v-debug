@@ -8,6 +8,8 @@
     "**/config_test.dSYM": true,
     "**/debug_test": true,
     "**/debug_test.dSYM": true,
+    "**/directory_test": true,
+    "**/directory_test.dSYM": true,
     "**/log_test": true,
     "**/log_test.dSYM": true,
     "**/time_test": true,

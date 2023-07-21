@@ -90,10 +90,10 @@ const many_colors = [
 	'221',
 ]
 
-const can_colors = detect_colors()
+const color_support = detect_colors()
 
 fn get_color(name string) string {
-	if debug.can_colors == 0 {
+	if debug.color_support == 0 {
 		return ''
 	}
 
@@ -102,7 +102,7 @@ fn get_color(name string) string {
 		hash = ((hash << 5) - hash) + c
 	}
 
-	colors := if debug.can_colors == 1 {
+	colors := if debug.color_support == 1 {
 		debug.few_colors
 	} else {
 		debug.many_colors
