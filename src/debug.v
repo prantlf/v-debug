@@ -2,15 +2,17 @@ module debug
 
 [noinit]
 pub struct Debug {
+	name  string
+	color string
 mut:
-	name      string
 	enabled   bool
-	color     string
-	last_time int
+	ticking   bool = true
+	init_tick bool
+	last_tick u64
 }
 
 pub fn new_debug(name string) &Debug {
-	mut debug := &Debug{
+	debug := &Debug{
 		name: name
 		enabled: is_enabled(name)
 		color: get_color(name)

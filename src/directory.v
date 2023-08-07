@@ -3,7 +3,7 @@ module debug
 import os { getwd }
 import strings { repeat_string }
 
-pub fn (mut d Debug) rwd(path string) string {
+pub fn (d &Debug) rwd(path string) string {
 	if d.enabled {
 		return if color_support > 0 {
 			rwd(path)

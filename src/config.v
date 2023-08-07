@@ -19,7 +19,13 @@ struct Config {
 
 const config = configure()
 
-const show_date = !has_env('DEBUG_HIDE_DATE')
+const hide_date = has_env('DEBUG_HIDE_DATE')
+
+const show_date = has_env('DEBUG_SHOW_DATE')
+
+const hide_time = has_env('DEBUG_HIDE_TIME')
+
+const show_time = has_env('DEBUG_SHOW_TIME')
 
 const rel_len = detect_rel_path()
 
@@ -27,12 +33,18 @@ pub fn (d &Debug) is_enabled() bool {
 	return d.enabled
 }
 
-pub fn (mut d Debug) enable() {
-	d.enabled = true
+pub fn (d &Debug) enable() {
+	enabled_ptr := &d.enabled
+	unsafe {
+		*enabled_ptr = true
+	}
 }
 
-pub fn (mut d Debug) disable() {
-	d.enabled = false
+pub fn (d &Debug) disable() {
+	enabled_ptr := &d.enabled
+	unsafe {
+		*enabled_ptr = false
+	}
 }
 
 fn is_enabled(name string) bool {

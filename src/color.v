@@ -9,7 +9,7 @@ $if windows {
 }
 fn C.IsWindows10OrGreater() int
 
-const few_colors = ['6', '2', '3', '4', '5', '1']
+const few_colors = ['6', '2', '3', '4', '5', '1']!
 
 const many_colors = [
 	'20',
@@ -88,7 +88,7 @@ const many_colors = [
 	'215',
 	'220',
 	'221',
-]
+]!
 
 const color_support = detect_colors()
 
@@ -102,12 +102,16 @@ fn get_color(name string) string {
 		hash = ((hash << 5) - hash) + c
 	}
 
-	colors := if debug.color_support == 1 {
-		debug.few_colors
+	mut colors := &string(0)
+	mut color_count := 0
+	colors = if debug.color_support == 1 {
+		color_count = debug.few_colors.len
+		&debug.few_colors[0]
 	} else {
-		debug.many_colors
+		color_count = debug.many_colors.len
+		&debug.many_colors[0]
 	}
-	color := colors[abs(hash) % u32(colors.len)]
+	color := unsafe { colors[abs(hash) % u32(color_count)] }
 	return if color.len == 1 {
 		color
 	} else {

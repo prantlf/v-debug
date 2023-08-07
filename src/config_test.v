@@ -1,17 +1,15 @@
 module debug
 
-__global (
-	d = new_debug('debug')
-)
+const d = new_debug('debug')
 
 fn test_log_disabled() {
-	d.disable()
-	assert d.is_enabled() == false
-	d.log('disabled')
+	debug.d.disable()
+	assert debug.d.is_enabled() == false
+	debug.d.log('disabled')
 }
 
 fn test_log_enabled() {
-	d.enable()
-	assert d.is_enabled() == true
-	d.log('enabled')
+	debug.d.enable()
+	assert debug.d.is_enabled() == true
+	debug.d.log('enabled')
 }

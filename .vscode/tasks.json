@@ -9,7 +9,6 @@
       "command": "v",
       "args": [
         "-g",
-        "-enable-globals",
         "crun",
         "${relativeFile}",
         "-o",

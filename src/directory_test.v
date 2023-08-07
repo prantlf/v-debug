@@ -2,9 +2,7 @@ module debug
 
 import os { getenv, getwd }
 
-__global (
-	d = new_debug('debug')
-)
+const d = new_debug('debug')
 
 fn last_sep(path string) int {
 	slash := path.last_index_u8(`/`)
@@ -27,7 +25,7 @@ fn test_debug_rwd() {
 	} else {
 		''
 	}
-	assert d.rwd(path) == expected
+	assert debug.d.rwd(path) == expected
 }
 
 fn test_rwd_same_path() {

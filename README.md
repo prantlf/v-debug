@@ -4,6 +4,7 @@ Tiny, simple and fast debug logging library.
 
 * No log levels - just enable or disable.
 * Enabling using for two-level namespaces.
+* Time duration from the previous or other log entry on the level of a microsecond.
 * Colourful output to standard error.
 
 Inspired by [debug at NPM].
@@ -34,20 +35,22 @@ v install --git https://github.com/prantlf/v-debug
 
 If the current terminal supports colours, they will be used them emphasize the logging instance name (bold) and time duration since the last log message (regular). The colour will be selected from a palette of 76 colours using a hash computed from the logging instance name.
 
-    test Creating file "text.txt" +0ms
-    test Done +21ms
+    test Creating file "text.txt" +0us
+    test Done +21us
 
 If the standard error doesn't support colours, the date and time of the log message will be printed in front of the log message. When inspecting a log file later, times of log entry messages can't be related to the execution time any more.
 
-    2023-07-16 23:50:56:801 test Creating file "text.txt"
-    2023-07-16 23:50:56:822 test Done
+    2023-07-16 23:50:56:801000 test Creating file "text.txt"
+    2023-07-16 23:50:56:822000 test Done
 
 Setting the environment variable `DEBUG_HIDE_DATE` will omit the date and time from the log message, if colours aren't supported.
 
     test Creating file "text.txt"
     test Done
 
-If the log message contains line breaks, they will be preserved. All lines Such log message will be prefixed by the logging instance name and optional time and one suffix (optoinal duration) and the lines will be left aligned by spaces to start at the same column.
+Setting the environment variable `DEBUG_SHOW_DATE` will print the date and time in front of the log message, even if colours are supported. Setting the environment variable `DEBUG_HIDE_TIME` will omit the the duration between log entries, even if colours are supported. Setting the environment variable `DEBUG_SHOW_TIME` will print the duration between log entries, even if colours aren't supported.
+
+If the log message contains line breaks, they will be preserved. All lines Such log message will be prefixed by the logging instance name and optional time and one suffix (optional duration) and the lines will be left aligned by spaces to start at the same column.
 
 ## Configuration
 
@@ -82,7 +85,7 @@ Setting environment variables is possible on the same command line too.
 
 ### NPM Script
 
-    "your_script": "@powershell -Command $env:DEBUG='*,-http:net'; your_command"
+    "your_script": "cross-env DEBUG='*,-http:net' your_command"
 
 ## API
 
@@ -90,18 +93,16 @@ The following functions and types are exported:
 
 ### new_debug(name string) &Debug
 
-Creates a new debug logging instance. Initialisation - enabling and colour support detection - is performed using process environment. Make sure that you mark the variable mutable; when logging, the value of elapsed time is constantly increased.
+Creates a new debug logging instance. Initialisation - enabling and colour support detection - is performed using process environment.
 
 ```go
 import prantlf.debug { new_debug }
 
 // One-level name, global logger
-__globals (
-  d = new_debug('test')
-)
+const d = new_debug('test')
 
 // Two-level name for a specific software layer, local logger
-mut d := new_debug('curl:net')
+d := new_debug('curl:net')
 ```
 
 ### Debug.is_enabled() bool
@@ -143,11 +144,17 @@ if enabled {
 
 ### Debug.log(format string, ...arguments)
 
-Prints a log message to the standard error if the debug logging is enabled in this instance. Otherwise it doesn't perform anything, not even string formatting, and just bails out. The message `format` and variadic `arguments` are expected as specified for the `printf` function family known from `C`.
+Prints a log message to the standard error if the debug logging is enabled in this instance. Otherwise it doesn't perform anything, not even string formatting, and just bails out. The message `format` and variadic `arguments` are expected as specified for the [printf] function family known from `C`.
 
 ```go
 answer := 42
 d.log('Answer to the ultimate question: %d', answer)
+```
+
+Just make sure that you pass variables and not expressions as variadic parameters. The `log` method, just like the underlying `strconv.v_sprintf`, requires all arguments convertible to `voidptr`. The following code will fail compiling, because a pointer to a memory address can't be computed for an expression, at least not in the current version of the V compiler:
+
+```go
+d.log('Answer to the ultimate question: %d', 42) // FAILURE
 ```
 
 ### Debug.log_str(text string)
@@ -169,7 +176,7 @@ d.log('Creating file "%s"', dfile_name)
 
 ### rwd(path string) string
 
-Returns a path relative to the current working directory for logging purposes. It can be used to put shorter paths to log and error messages, which will make them easier to follow.
+Returns a path relative to the current working directory for logging purposes. It can be used to put shorter paths to log and error messages, which will make them easier to follow. It isn't affected by enabling of the debug logging like the class method above.
 
 ```go
 return error('Creating file "${debug.rwd(file_name)}" failed')
@@ -199,5 +206,109 @@ If the input path isn't based on the current working directory, but the parent p
 
 The length of the path fragment to the common directory root can be controlled by the environment variable `DEBUG_REL_PATH`. If set to an empty string, logging relative paths will be disabled. If set to a zero, input paths will have to start with the current working directory to be considered relative. If set to a number greater than zero, the common relative root will be movable to the specified number of directories below the common directory, which may include one or more `'..'` parts in the output relative path.
 
+### Debug.is_ticking() bool
+
+Returns if the microsecond clock measuring time between two consecutive log entries is ticking. If not, the upcoming log entry won;t contain the time duration from the previous log entry. See the `stop_ticking` method below for more information.
+
+### Debug.start_ticking()
+
+Starts the microsecond clock measuring time between two consecutive log entries, if it was stopped before, otherwise it has no effect. See the `stop_ticking` method below for more information.
+
+### Debug.stop_ticking()
+
+Stops if the microsecond clock measuring time between two consecutive log entries, if it was ticking, otherwise it has no effect.
+
+If you log very often, the microsecond ticks will be come very small or even zero. It won't be helpful for measuring time durations of your applications any more. Sometimes you will want to measure the time that the whole function needed to execute and not just one loop iteration. For example:
+
+```go
+fn compute () {
+  d.log_str('Computing a new answer')
+  d.stop_ticking()
+  for try in trials {
+    d.log('Trying "%s"', trial)
+    ...
+  }
+  d.start_ticking()
+  d.log('Computed answer "%s"', answer)
+}
+```
+
+Only the last log entry from the function above will contain the time duration and it will be the time duration between the calls to `stop_ticking` and `start_ticking` methods:
+
+    Computing a new answer +1us
+    Trying "a"
+    Trying "b"
+    ...
+    Computed answer "u" +134us
+
+## Global Usage
+
+When implementing logging in an application or command line tool, it's more convenient to create one global logging object and use it in each source file:
+
+```go
+__global (
+  d := new_debug('newchanges')
+)
+
+fn run() ! {
+  d.log_str('starting')
+  ...
+}
+```
+
+Than creating the logging object in the `main` function and that pass it to each other function or structure, which would introduce a lot of function arguments throughout the source code:
+
+```go
+fn run(d &Debug) ! {
+  d.log_str('starting')
+  ...
+}
+
+fn main() {
+  d := new_debug('newchanges')
+  run(d) or {
+    eprintln(err)
+    exit(1)
+  }
+}
+```
+
+When implementing logging in a library, the logging object would pollute even the logging interface. However, using global variables has to be enabled by the compiler switch `-enable-globals`, which may not be acceptable by everybody. So, how to allow the library to log independently on its interface and and don't require enabling globals?
+
+The solution is using a *constant* global logging object. Global constants compile without limitations:
+
+```go
+const d = new_debug('newchanges')
+
+fn run() ! {
+  d.log_str('starting')
+  ...
+}
+```
+
+However, the logging object would have to be initialised only when the application starts and it wouldn't be able to carry a state, which would be changeable, like a time difference to the previous log entry. While this may be sufficient for a very simple logging object - initialised only using environment variables, no state - when the logging library develops, it'd become a painful limitation soon.
+
+Because a constant is handled only in the V compiler and can be overridden in the C code, there's a trick to modify the logging object even in the constant context:
+
+```go
+pub fn (d &Debug) enable() {
+  enabled_ptr := &d.enabled
+  unsafe { *enabled_ptr = true }
+}
+```
+
+This isn't save in multi-threaded context. Using the same logging object in multiple threads might not be reliable. On the other hand, separate threads should use their own loggers, because their log entries wouldn't be distinguishable, and thus the risk of something broken because of this trick is negligible.
+
+## Contributing
+
+In lieu of a formal styleguide, take care to maintain the existing coding style. Lint and test your code.
+
+## License
+
+Copyright (c) 2023 Ferdinand Prantl
+
+Licensed under the MIT license.
+
 [VPM]: https://vpm.vlang.io/packages/prantlf.jany
 [debug at NPM]: https://www.npmjs.com/package/debug
+[printf]: https://man7.org/linux/man-pages/man3/fprintf.3p.html
