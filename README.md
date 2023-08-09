@@ -309,6 +309,6 @@ Copyright (c) 2023 Ferdinand Prantl
 
 Licensed under the MIT license.
 
-[VPM]: https://vpm.vlang.io/packages/prantlf.jany
+[VPM]: https://vpm.vlang.io/packages/prantlf.debug
 [debug at NPM]: https://www.npmjs.com/package/debug
 [printf]: https://man7.org/linux/man-pages/man3/fprintf.3p.html
