@@ -4,14 +4,15 @@ import os { getwd }
 import strings { repeat_string }
 
 pub fn (d &Debug) rwd(path string) string {
-	if d.enabled {
-		return if color_support > 0 {
+	return if d.enabled {
+		if color_support > 0 {
 			rwd(path)
 		} else {
 			path
 		}
+	} else {
+		''
 	}
-	return ''
 }
 
 pub fn rwd(path string) string {

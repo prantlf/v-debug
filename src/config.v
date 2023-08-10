@@ -29,6 +29,10 @@ const show_time = has_env('DEBUG_SHOW_TIME')
 
 const rel_len = detect_rel_path()
 
+const short_len = detect_short_len()
+
+const half_short_len = short_len / 2
+
 pub fn (d &Debug) is_enabled() bool {
 	return d.enabled
 }
@@ -124,6 +128,15 @@ fn split_name(name string) (Name, bool) {
 
 fn detect_rel_path() int {
 	len := getenv_opt('DEBUG_REL_PATH') or { '2' }
+	return if len.len > 0 {
+		len.int()
+	} else {
+		-1
+	}
+}
+
+fn detect_short_len() int {
+	len := getenv_opt('DEBUG_SHORT_LEN') or { '30' }
 	return if len.len > 0 {
 		len.int()
 	} else {

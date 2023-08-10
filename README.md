@@ -206,6 +206,33 @@ If the input path isn't based on the current working directory, but the parent p
 
 The length of the path fragment to the common directory root can be controlled by the environment variable `DEBUG_REL_PATH`. If set to an empty string, logging relative paths will be disabled. If set to a zero, input paths will have to start with the current working directory to be considered relative. If set to a number greater than zero, the common relative root will be movable to the specified number of directories below the common directory, which may include one or more `'..'` parts in the output relative path.
 
+### Debug.shorten(s string) string
+
+Returns either the input string as-is, or shortened to a maximum length, if the debug logging is enabled in this instance. Otherwise it will return an empty string. See the static `shorten` below for more information.
+
+```go
+description_s := d.shorten(description)
+d.log('Entered description "%s"', description_s)
+```
+
+### Debug.shorten_ext(s string, start int, stop int) string
+
+Works like the method `shorten`, just using a part of the input string. If `stop` is `-1`, the full string length will be used.
+
+### shorten(s string) string
+
+Returns either the input string as-is, or shortened to a maximum length. It can be used to put beginnings of strings to log as a hint to error messages, which will make them easier to follow. It isn't affected by enabling of the debug logging like the class method above.
+
+```go
+return error('Saving the description "${shorten(description)}" failed')
+```
+
+The maximum of length of the shortened string can be adjusted with the environment variable `DEBUG_SHORT_LEN`. The default value is `30`. If the input string length exceeds the maximum, the string will be trimmed to the maximum length *in the middle* and `...` (three dots) will be inserted to the middle. If the environment variable is set to `-1`, the shortening will be disabled and the full string will be returned.
+
+### shorten_ext(s string, start int, stop int) string
+
+Works like the function `shorten`, just using a part of the input string. If `stop` is `-1`, the full string length will be used.
+
 ### Debug.is_ticking() bool
 
 Returns if the microsecond clock measuring time between two consecutive log entries is ticking. If not, the upcoming log entry won;t contain the time duration from the previous log entry. See the `stop_ticking` method below for more information.
