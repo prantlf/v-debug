@@ -1,5 +1,11 @@
 # Changes
 
+## [0.2.0](https://github.com/prantlf/v-debug/compare/v0.1.0...v0.2.0) (2023-08-11)
+
+### Features
+
+* Add functions for shortening strings ([c87cdb4](https://github.com/prantlf/v-debug/commit/c87cdb42f2fb83300a076893fc9d6ac50a1316d1))
+
 ## [0.1.0](https://github.com/prantlf/v-debug/compare/v0.0.2...v0.1.0) (2023-08-07)
 
 ### Features
