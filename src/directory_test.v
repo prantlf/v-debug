@@ -17,7 +17,7 @@ fn last_sep(path string) int {
 fn test_debug_rwd() {
 	path := '${getwd()}${os.path_separator}test'
 	expected := if getenv('DEBUG') == 'debug' {
-		if getenv('NO_COLOR') == '1' {
+		if getenv('NO_COLOR') == '1' || has_env('CI') {
 			path
 		} else {
 			'.${os.path_separator}test'
