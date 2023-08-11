@@ -71,7 +71,7 @@ fn test_format_now_1() {
 		hour: 1
 		minute: 1
 		second: 1
-		microsecond: 1
+		nanosecond: 1_000
 	}
 	assert format_now(now) == '2001-01-01 01:01:01:000001 '
 }
@@ -84,7 +84,7 @@ fn test_format_now_2() {
 		hour: 1
 		minute: 1
 		second: 1
-		microsecond: 10
+		nanosecond: 10_000
 	}
 	assert format_now(now) == '2001-01-01 01:01:01:000010 '
 }
@@ -97,7 +97,7 @@ fn test_format_now_3() {
 		hour: 1
 		minute: 1
 		second: 1
-		microsecond: 100
+		nanosecond: 100_000
 	}
 	assert format_now(now) == '2001-01-01 01:01:01:000100 '
 }
@@ -110,7 +110,7 @@ fn test_format_now_4() {
 		hour: 1
 		minute: 1
 		second: 1
-		microsecond: 1_000
+		nanosecond: 1_000_000
 	}
 	assert format_now(now) == '2001-01-01 01:01:01:001000 '
 }
@@ -123,7 +123,7 @@ fn test_format_now_5() {
 		hour: 22
 		minute: 33
 		second: 44
-		microsecond: 10_000
+		nanosecond: 10_000_000
 	}
 	assert format_now(now) == '2010-10-11 22:33:44:010000 '
 }
@@ -136,7 +136,7 @@ fn test_format_now_6() {
 		hour: 22
 		minute: 33
 		second: 44
-		microsecond: 100_000
+		nanosecond: 100_000_000
 	}
 	assert format_now(now) == '2100-10-11 22:33:44:100000 '
 }

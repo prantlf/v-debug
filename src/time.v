@@ -61,7 +61,7 @@ fn write_now(stamp &Time, mut builder Builder) {
 	builder.write_u8(`:`)
 	write_pad2(stamp.second, mut builder)
 	builder.write_u8(`:`)
-	write_pad6(stamp.microsecond, mut builder)
+	write_pad6(stamp.nanosecond / 1000, mut builder)
 	builder.write_u8(` `)
 }
 

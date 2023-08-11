@@ -3,7 +3,7 @@
 Tiny, simple and fast debug logging library.
 
 * No log levels - just enable or disable.
-* Enabling using for two-level namespaces.
+* Enabling using two-level namespaces.
 * Time duration from the previous or other log entry on the level of a microsecond.
 * Colourful output to standard error.
 
@@ -85,7 +85,7 @@ Setting environment variables is possible on the same command line too.
 
 ### NPM Script
 
-    "your_script": "cross-env DEBUG='*,-http:net' your_command"
+    "your_script": "cross-env DEBUG=*,-http:net your_command"
 
 ## API
 
@@ -302,6 +302,8 @@ fn main() {
 
 When implementing logging in a library, the logging object would pollute even the logging interface. However, using global variables has to be enabled by the compiler switch `-enable-globals`, which may not be acceptable by everybody. So, how to allow the library to log independently on its interface and and don't require enabling globals?
 
+### Solution
+
 The solution is using a *constant* global logging object. Global constants compile without limitations:
 
 ```go
@@ -312,6 +314,8 @@ fn run() ! {
   ...
 }
 ```
+
+### Trick
 
 However, the logging object would have to be initialised only when the application starts and it wouldn't be able to carry a state, which would be changeable, like a time difference to the previous log entry. While this may be sufficient for a very simple logging object - initialised only using environment variables, no state - when the logging library develops, it'd become a painful limitation soon.
 
