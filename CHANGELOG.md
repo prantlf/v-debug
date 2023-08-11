@@ -1,5 +1,11 @@
 # Changes
 
+## [0.2.1](https://github.com/prantlf/v-debug/compare/v0.2.0...v0.2.1) (2023-08-11)
+
+### Bug Fixes
+
+* Use Time.nanosecond instead of the deprecated microsecond ([11f7c73](https://github.com/prantlf/v-debug/commit/11f7c730dad2cc0ff5f798820876d2c13b660832))
+
 ## [0.2.0](https://github.com/prantlf/v-debug/compare/v0.1.0...v0.2.0) (2023-08-11)
 
 ### Features
