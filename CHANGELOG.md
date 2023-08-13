@@ -1,5 +1,16 @@
 # Changes
 
+## [0.3.0](https://github.com/prantlf/v-debug/compare/v0.2.1...v0.3.0) (2023-08-13)
+
+### Features
+
+* Rename shorten_ext to shorten_within ([d08c2ea](https://github.com/prantlf/v-debug/commit/d08c2ead9f5ebe8582aea7021fa7982872d8f1f4))
+
+### BREAKING CHANGES
+
+Rename occurrences of `shorten_ext` to `shorten_within`.
+A reluctant, annoying change. Make the API consistent with `prantlf.strutil`.
+
 ## [0.2.1](https://github.com/prantlf/v-debug/compare/v0.2.0...v0.2.1) (2023-08-11)
 
 ### Bug Fixes
