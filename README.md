@@ -215,7 +215,7 @@ description_s := d.shorten(description)
 d.log('Entered description "%s"', description_s)
 ```
 
-### Debug.shorten_ext(s string, start int, stop int) string
+### Debug.shorten_within(s string, start int, stop int) string
 
 Works like the method `shorten`, just using a part of the input string. If `stop` is `-1`, the full string length will be used.
 
@@ -229,7 +229,7 @@ return error('Saving the description "${shorten(description)}" failed')
 
 The maximum of length of the shortened string can be adjusted with the environment variable `DEBUG_SHORT_LEN`. The default value is `30`. If the input string length exceeds the maximum, the string will be trimmed to the maximum length *in the middle* and `...` (three dots) will be inserted to the middle. If the environment variable is set to `-1`, the shortening will be disabled and the full string will be returned.
 
-### shorten_ext(s string, start int, stop int) string
+### shorten_within(s string, start int, stop int) string
 
 Works like the function `shorten`, just using a part of the input string. If `stop` is `-1`, the full string length will be used.
 

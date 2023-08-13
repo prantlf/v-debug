@@ -8,9 +8,9 @@ pub fn (d &Debug) shorten(s string) string {
 	}
 }
 
-pub fn (d &Debug) shorten_ext(s string, start int, stop int) string {
+pub fn (d &Debug) shorten_within(s string, start int, stop int) string {
 	return if d.enabled {
-		shorten_ext(s, start, stop)
+		shorten_within(s, start, stop)
 	} else {
 		''
 	}
@@ -26,18 +26,18 @@ pub fn shorten(s string) string {
 }
 
 [direct_array_access]
-pub fn shorten_ext(s string, start int, stop int) string {
-	end := if stop < 0 || stop > s.len {
+pub fn shorten_within(s string, start int, end int) string {
+	stop := if end < 0 || end > s.len {
 		s.len
 	} else {
-		stop
-	}
-	if start >= end {
-		return ''
-	}
-	if short_len < 0 || short_len >= end - start {
-		return s[start..end]
+		end
 	}
 
-	return '${s[start..start + half_short_len]}...${s[end - half_short_len..end]}'
+	return if start >= stop {
+		''
+	} else if short_len < 0 || short_len >= stop - start {
+		s[start..stop]
+	} else {
+		'${s[start..start + half_short_len]}...${s[stop - half_short_len..stop]}'
+	}
 }
