@@ -1,5 +1,13 @@
 # Changes
 
+## [0.3.1](https://github.com/prantlf/v-debug/compare/v0.3.0...v0.3.1) (2023-09-17)
+
+### Bug Fixes
+
+* Fix windows performance counter usage ([0e06ebf](https://github.com/prantlf/v-debug/commit/0e06ebf9a5a32a21bb898fd68ff00ebe8840bac2))
+* Do not call fcntl to check open stderr ([5a229e8](https://github.com/prantlf/v-debug/commit/5a229e861ed6ccf436440d7675a01103d80210cc))
+* Name variables other tham module name, adapt to new v ([fd09411](https://github.com/prantlf/v-debug/commit/fd094118d3036ac5f65f35babcd1b3614fbe6a3c))
+
 ## [0.3.0](https://github.com/prantlf/v-debug/compare/v0.2.1...v0.3.0) (2023-08-13)
 
 ### Features
