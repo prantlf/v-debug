@@ -4,11 +4,6 @@ import math { abs }
 import os { getenv, getenv_opt }
 import term { can_show_color_on_stderr }
 
-// $if windows {
-// 	#include <windows.h>
-// }
-// fn C.IsWindows10OrGreater() int
-
 const few_colors = ['6', '2', '3', '4', '5', '1']!
 
 const many_colors = [
@@ -145,12 +140,11 @@ fn detect_colors() int {
 	}
 
 	$if windows {
-		return 2
-		// return if C.IsWindows10OrGreater() != 0 {
-		// 	2
-		// } else {
-		// 	1
-		// }
+		return if is_win10_or_greater() {
+			2
+		} else {
+			1
+		}
 	}
 
 	if has_env('CI') {

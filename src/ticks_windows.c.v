@@ -27,8 +27,8 @@ module debug
 //   QuadPart i64
 // }
 
-fn C.QueryPerformanceFrequency(f &u64) int
-fn C.QueryPerformanceCounter(f &u64) int
+fn C.QueryPerformanceFrequency(f &u64) C.BOOL
+fn C.QueryPerformanceCounter(f &u64) C.BOOL
 
 const frequency = get_frequency()
 
