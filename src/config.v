@@ -78,9 +78,9 @@ fn is_enabled(name string) bool {
 }
 
 fn configure() &Config {
-	if C.fcntl(2, C.F_GETFD) == -1 && C.errno == C.EBADF {
-		panic('Standard error is not open')
-	}
+	// if C.fcntl(2, C.F_GETFD) == -1 && C.errno == C.EBADF {
+	// 	panic('Standard error is not open')
+	// }
 
 	env := getenv('DEBUG')
 	if env.len == 0 {
