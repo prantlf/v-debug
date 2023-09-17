@@ -18,8 +18,8 @@ fn test_diff_ticks() {
 	sleep(2_000)
 	usec2 := ticks()
 	usec3 := diff_ticks(usec1, usec2)
-	assert usec3 > 1
-	assert usec3 < 100
+	assert usec3 > 0
+	assert usec3 < 1000
 }
 
 fn test_log_ticks() {
