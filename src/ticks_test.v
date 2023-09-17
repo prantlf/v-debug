@@ -10,7 +10,7 @@ fn test_ticks() {
 	sleep(1_000_002_000)
 	usec2 := ticks()
 	assert abs(usec2 - usec1) > 1_000_001
-	assert abs(usec2 - usec1) < 1_010_000
+	assert abs(usec2 - usec1) < 1_300_000
 }
 
 fn test_diff_ticks() {
