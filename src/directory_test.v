@@ -42,12 +42,12 @@ fn test_rwd_shorter_path() {
 	mut path := getwd()
 	sep := last_sep(path)
 	path = path[..sep]
-	assert rwd(path) == './..'
+	assert rwd(path) == '.${os.path_separator}..'
 }
 
 fn test_rwd_diverged_path() {
 	mut path := getwd()
 	sep := last_sep(path)
 	path = '${path[..sep + 1]}other'
-	assert rwd(path) == './../other'
+	assert rwd(path) == '.${os.path_separator}..${os.path_separator}other'
 }

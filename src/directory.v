@@ -43,7 +43,7 @@ pub fn rwd(path string) string {
 			if rel_len > 0 {
 				seps := sep_count(wd, sep + 1)
 				if seps < rel_len {
-					rel_path := repeat_string('/..', seps + 1)
+					rel_path := repeat_string('${os.path_separator}..', seps + 1)
 					return '.${rel_path}${path[sep..]}'
 				}
 			}
@@ -60,7 +60,7 @@ pub fn rwd(path string) string {
 		if rel_len >= 0 {
 			seps := sep_count(wd, path_len)
 			if seps <= rel_len {
-				rel_path := repeat_string('/..', seps)
+				rel_path := repeat_string('${os.path_separator}..', seps)
 				return '.${rel_path}'
 			}
 		}
