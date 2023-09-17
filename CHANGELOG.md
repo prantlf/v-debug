@@ -1,5 +1,14 @@
 # Changes
 
+## [0.3.2](https://github.com/prantlf/v-debug/compare/v0.3.1...v0.3.2) (2023-09-17)
+
+### Bug Fixes
+
+* Replace WindowsHelpers.h with windows.h ([475ffa3](https://github.com/prantlf/v-debug/commit/475ffa386a106a2389bba19d1cb450a9f862131c))
+* Remove profileapi.h ([e5ae9ee](https://github.com/prantlf/v-debug/commit/e5ae9ee0db6ddd29fd843534a04aff9c0590fef8))
+* Remove the call to IsWindows10OrGreater ([28bc588](https://github.com/prantlf/v-debug/commit/28bc588ee8e8f2e0f303a6d9b87c9aedcfe0d60f))
+* Use platform-specific path separator ([6ae39ee](https://github.com/prantlf/v-debug/commit/6ae39ee87e0ce39176abfa07b734d28fdfbfb196))
+
 ## [0.3.1](https://github.com/prantlf/v-debug/compare/v0.3.0...v0.3.1) (2023-09-17)
 
 ### Bug Fixes
