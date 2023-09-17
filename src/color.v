@@ -5,7 +5,7 @@ import os { getenv, getenv_opt }
 import term { can_show_color_on_stderr }
 
 $if windows {
-	#include <VersionHelpers.h>
+	#include <windows.h>
 }
 fn C.IsWindows10OrGreater() int
 
