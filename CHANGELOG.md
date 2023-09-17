@@ -1,5 +1,11 @@
 # Changes
 
+## [0.3.3](https://github.com/prantlf/v-debug/compare/v0.3.2...v0.3.3) (2023-09-17)
+
+### Bug Fixes
+
+* Detect improved colours on windows 10 ([8246e6a](https://github.com/prantlf/v-debug/commit/8246e6afc481260fe2e5ddc525af1557ff73bc28))
+
 ## [0.3.2](https://github.com/prantlf/v-debug/compare/v0.3.1...v0.3.2) (2023-09-17)
 
 ### Bug Fixes
