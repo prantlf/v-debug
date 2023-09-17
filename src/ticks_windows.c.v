@@ -2,7 +2,6 @@ module debug
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-#include <profileapi.h>
 
 // int gettimeofday(struct timeval * tp, struct timezone * tzp) {
 // 	// Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
@@ -27,6 +26,9 @@ module debug
 // struct C.LARGE_INTEGER {
 //   QuadPart i64
 // }
+
+fn C.QueryPerformanceFrequency(f &u64) int
+fn C.QueryPerformanceCounter(f &u64) int
 
 const frequency = get_frequency()
 
