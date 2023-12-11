@@ -1,6 +1,6 @@
 module debug
 
-[noinit]
+@[noinit]
 pub struct Debug {
 	name  string
 	color string

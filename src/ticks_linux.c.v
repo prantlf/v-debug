@@ -17,5 +17,5 @@ module debug
 fn ticks() u64 {
 	tv := C.timeval{}
 	C.gettimeofday(&tv, 0)
-	return u64(tv.tv_sec * 1_000_000) + tv.tv_usec
+	return u64(tv.tv_sec) * 1_000_000 + tv.tv_usec
 }

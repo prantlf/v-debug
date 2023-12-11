@@ -16,7 +16,7 @@ pub fn (d &Debug) shorten_within(s string, start int, stop int) string {
 	}
 }
 
-[direct_array_access]
+@[direct_array_access]
 pub fn shorten(s string) string {
 	if short_len < 0 || short_len >= s.len || s.len == 0 {
 		return s
@@ -25,7 +25,7 @@ pub fn shorten(s string) string {
 	return '${s[..half_short_len]}...${s[s.len - half_short_len..]}'
 }
 
-[direct_array_access]
+@[direct_array_access]
 pub fn shorten_within(s string, start int, end int) string {
 	stop := if end < 0 || end > s.len {
 		s.len
