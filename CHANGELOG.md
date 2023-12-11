@@ -1,5 +1,11 @@
 # Changes
 
+## [0.3.4](https://github.com/prantlf/v-debug/compare/v0.3.3...v0.3.4) (2023-12-11)
+
+### Bug Fixes
+
+* Adapt for V langage changes ([7351615](https://github.com/prantlf/v-debug/commit/735161537334219d142145b087b367f8d248aab6))
+
 ## [0.3.3](https://github.com/prantlf/v-debug/compare/v0.3.2...v0.3.3) (2023-09-17)
 
 ### Bug Fixes
