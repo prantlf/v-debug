@@ -1,5 +1,11 @@
 # Changes
 
+## [0.3.5](https://github.com/prantlf/v-debug/compare/v0.3.4...v0.3.5) (2024-08-11)
+
+### Bug Fixes
+
+* Replace deprecated index_u8_last with last_index_u8 ([0f300cb](https://github.com/prantlf/v-debug/commit/0f300cbf963869bdeaf8fd224b488f0a2b6f0ab0))
+
 ## [0.3.4](https://github.com/prantlf/v-debug/compare/v0.3.3...v0.3.4) (2023-12-11)
 
 ### Bug Fixes
