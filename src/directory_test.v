@@ -5,8 +5,8 @@ import os { getenv, getwd }
 const d = new_debug('debug')
 
 fn last_sep(path string) int {
-	slash := path.index_u8_last(`/`)
-	backslash := path.index_u8_last(`\\`)
+	slash := path.last_index_u8(`/`)
+	backslash := path.last_index_u8(`\\`)
 	return if slash > backslash {
 		slash
 	} else {
