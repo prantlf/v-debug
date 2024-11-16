@@ -65,12 +65,12 @@ fn test_format_ticks_d_up() {
 
 fn test_format_now_1() {
 	now := Time{
-		year: 2001
-		month: 1
-		day: 1
-		hour: 1
-		minute: 1
-		second: 1
+		year:       2001
+		month:      1
+		day:        1
+		hour:       1
+		minute:     1
+		second:     1
 		nanosecond: 1_000
 	}
 	assert format_now(now) == '2001-01-01 01:01:01:000001 '
@@ -78,12 +78,12 @@ fn test_format_now_1() {
 
 fn test_format_now_2() {
 	now := Time{
-		year: 2001
-		month: 1
-		day: 1
-		hour: 1
-		minute: 1
-		second: 1
+		year:       2001
+		month:      1
+		day:        1
+		hour:       1
+		minute:     1
+		second:     1
 		nanosecond: 10_000
 	}
 	assert format_now(now) == '2001-01-01 01:01:01:000010 '
@@ -91,12 +91,12 @@ fn test_format_now_2() {
 
 fn test_format_now_3() {
 	now := Time{
-		year: 2001
-		month: 1
-		day: 1
-		hour: 1
-		minute: 1
-		second: 1
+		year:       2001
+		month:      1
+		day:        1
+		hour:       1
+		minute:     1
+		second:     1
 		nanosecond: 100_000
 	}
 	assert format_now(now) == '2001-01-01 01:01:01:000100 '
@@ -104,12 +104,12 @@ fn test_format_now_3() {
 
 fn test_format_now_4() {
 	now := Time{
-		year: 2001
-		month: 1
-		day: 1
-		hour: 1
-		minute: 1
-		second: 1
+		year:       2001
+		month:      1
+		day:        1
+		hour:       1
+		minute:     1
+		second:     1
 		nanosecond: 1_000_000
 	}
 	assert format_now(now) == '2001-01-01 01:01:01:001000 '
@@ -117,12 +117,12 @@ fn test_format_now_4() {
 
 fn test_format_now_5() {
 	now := Time{
-		year: 2010
-		month: 10
-		day: 11
-		hour: 22
-		minute: 33
-		second: 44
+		year:       2010
+		month:      10
+		day:        11
+		hour:       22
+		minute:     33
+		second:     44
 		nanosecond: 10_000_000
 	}
 	assert format_now(now) == '2010-10-11 22:33:44:010000 '
@@ -130,12 +130,12 @@ fn test_format_now_5() {
 
 fn test_format_now_6() {
 	now := Time{
-		year: 2100
-		month: 10
-		day: 11
-		hour: 22
-		minute: 33
-		second: 44
+		year:       2100
+		month:      10
+		day:        11
+		hour:       22
+		minute:     33
+		second:     44
 		nanosecond: 100_000_000
 	}
 	assert format_now(now) == '2100-10-11 22:33:44:100000 '

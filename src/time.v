@@ -15,30 +15,30 @@ const hour = minute * 60
 const day = hour * 24
 
 fn write_ticks(us u64, mut builder Builder) {
-	if us < debug.millisecond {
+	if us < millisecond {
 		builder.write_string(us.str())
 		builder.write_u8(`u`)
 		builder.write_u8(`s`)
 	} else {
-		if us < debug.second {
-			ms := round(f64(us) / debug.millisecond)
+		if us < second {
+			ms := round(f64(us) / millisecond)
 			builder.write_string(int(ms).str())
 			builder.write_u8(`m`)
 			builder.write_u8(`s`)
 		} else {
 			mut num := f64(0)
 			mut suffix := `\0`
-			if us < debug.minute {
-				num = round(f64(us) / debug.second)
+			if us < minute {
+				num = round(f64(us) / second)
 				suffix = `s`
-			} else if us < debug.hour {
-				num = round(f64(us) / debug.minute)
+			} else if us < hour {
+				num = round(f64(us) / minute)
 				suffix = `m`
-			} else if us < debug.day {
-				num = round(f64(us) / debug.hour)
+			} else if us < day {
+				num = round(f64(us) / hour)
 				suffix = `h`
 			} else {
-				num = round(f64(us) / debug.day)
+				num = round(f64(us) / day)
 				suffix = `d`
 			}
 			builder.write_string(int(num).str())

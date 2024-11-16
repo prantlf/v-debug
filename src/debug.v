@@ -13,9 +13,9 @@ mut:
 
 pub fn new_debug(name string) &Debug {
 	dbg := &Debug{
-		name: name
+		name:    name
 		enabled: is_enabled(name)
-		color: get_color(name)
+		color:   get_color(name)
 	}
 	return dbg
 }

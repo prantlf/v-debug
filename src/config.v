@@ -55,7 +55,7 @@ fn is_enabled(name string) bool {
 	name_parts := name.split(':')
 	name_both := name_parts.len == 2
 
-	for disabled in debug.config.disabled {
+	for disabled in config.disabled {
 		if name_parts[0] == disabled.main {
 			if disabled.layer.len == 0 || (name_both && name_parts[1] == disabled.layer) {
 				return false
@@ -63,7 +63,7 @@ fn is_enabled(name string) bool {
 		}
 	}
 
-	for enabled in debug.config.enabled {
+	for enabled in config.enabled {
 		if enabled.main == '*' {
 			return true
 		}
@@ -100,7 +100,7 @@ fn configure() &Config {
 	}
 
 	return &Config{
-		enabled: enabled
+		enabled:  enabled
 		disabled: disabled
 	}
 }
@@ -121,7 +121,7 @@ fn split_name(name string) (Name, bool) {
 	}
 
 	return Name{
-		main: parts[0]
+		main:  parts[0]
 		layer: layer
 	}, on
 }

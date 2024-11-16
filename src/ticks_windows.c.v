@@ -41,5 +41,5 @@ fn get_frequency() u64 {
 fn ticks() u64 {
 	pc := u64(0)
 	C.QueryPerformanceCounter(&pc)
-	return u64(pc * 1_000_000 / debug.frequency)
+	return u64(pc * 1_000_000 / frequency)
 }

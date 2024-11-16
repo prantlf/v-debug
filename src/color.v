@@ -88,7 +88,7 @@ const many_colors = [
 const color_support = detect_colors()
 
 fn get_color(name string) string {
-	if debug.color_support == 0 {
+	if color_support == 0 {
 		return ''
 	}
 
@@ -99,12 +99,12 @@ fn get_color(name string) string {
 
 	mut colors := &string(0)
 	mut color_count := 0
-	colors = if debug.color_support == 1 {
-		color_count = debug.few_colors.len
-		&debug.few_colors[0]
+	colors = if color_support == 1 {
+		color_count = few_colors.len
+		&few_colors[0]
 	} else {
-		color_count = debug.many_colors.len
-		&debug.many_colors[0]
+		color_count = many_colors.len
+		&many_colors[0]
 	}
 	color := unsafe { colors[abs(hash) % u32(color_count)] }
 	return if color.len == 1 {

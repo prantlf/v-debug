@@ -10,7 +10,7 @@ fn test_debug_shorten() {
 	} else {
 		''
 	}
-	assert debug.d.shorten('a') == expected
+	assert d.shorten('a') == expected
 }
 
 fn test_shorten_empty() {
@@ -31,7 +31,7 @@ fn test_debug_shorten_within() {
 	} else {
 		''
 	}
-	assert debug.d.shorten_within('a', 0, 1) == expected
+	assert d.shorten_within('a', 0, 1) == expected
 }
 
 fn test_shorten_within_empty() {

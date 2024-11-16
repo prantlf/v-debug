@@ -23,13 +23,13 @@ fn test_diff_ticks() {
 }
 
 fn test_log_ticks() {
-	assert debug.d.is_ticking()
-	debug.d.log_str('tick 1')
-	debug.d.stop_ticking()
-	assert !debug.d.is_ticking()
-	debug.d.log_str('tick 2')
+	assert d.is_ticking()
+	d.log_str('tick 1')
+	d.stop_ticking()
+	assert !d.is_ticking()
+	d.log_str('tick 2')
 	sleep(1_000)
-	debug.d.start_ticking()
-	assert debug.d.is_ticking()
-	debug.d.log_str('tick 3')
+	d.start_ticking()
+	assert d.is_ticking()
+	d.log_str('tick 3')
 }

@@ -25,7 +25,7 @@ fn test_debug_rwd() {
 	} else {
 		''
 	}
-	assert debug.d.rwd(path) == expected
+	assert d.rwd(path) == expected
 }
 
 fn test_rwd_same_path() {
