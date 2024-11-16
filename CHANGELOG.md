@@ -1,5 +1,11 @@
 # Changes
 
+## [0.3.6](https://github.com/prantlf/v-debug/compare/v0.3.5...v0.3.6) (2024-11-16)
+
+### Bug Fixes
+
+* Fix sources for the new V compiler ([fe63fd8](https://github.com/prantlf/v-debug/commit/fe63fd8256ba669d2d3d75062373a1c37f4119ba))
+
 ## [0.3.5](https://github.com/prantlf/v-debug/compare/v0.3.4...v0.3.5) (2024-08-11)
 
 ### Bug Fixes
