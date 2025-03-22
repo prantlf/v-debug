@@ -57,7 +57,7 @@ fn is_enabled(name string) bool {
 
 	for disabled in config.disabled {
 		if name_parts[0] == disabled.main {
-			if disabled.layer.len == 0 || (name_both && name_parts[1] == disabled.layer) {
+			if disabled.layer == '' || (name_both && name_parts[1] == disabled.layer) {
 				return false
 			}
 		}
@@ -68,7 +68,7 @@ fn is_enabled(name string) bool {
 			return true
 		}
 		if name_parts[0] == enabled.main {
-			if enabled.layer.len == 0 || (name_both && name_parts[1] == enabled.layer) {
+			if enabled.layer == '' || (name_both && name_parts[1] == enabled.layer) {
 				return true
 			}
 		}
@@ -83,7 +83,7 @@ fn configure() &Config {
 	// }
 
 	env := getenv('DEBUG')
-	if env.len == 0 {
+	if env == '' {
 		return &Config{}
 	}
 

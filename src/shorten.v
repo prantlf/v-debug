@@ -18,7 +18,7 @@ pub fn (d &Debug) shorten_within(s string, start int, stop int) string {
 
 @[direct_array_access]
 pub fn shorten(s string) string {
-	if short_len < 0 || short_len >= s.len || s.len == 0 {
+	if short_len < 0 || short_len >= s.len || s == '' {
 		return s
 	}
 
