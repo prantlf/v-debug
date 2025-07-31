@@ -1,5 +1,11 @@
 # Changes
 
+## [0.4.1](https://github.com/prantlf/v-debug/compare/v0.4.0...v0.4.1) (2025-07-31)
+
+### Bug Fixes
+
+* Fix compiler warnings ([a564c7a](https://github.com/prantlf/v-debug/commit/a564c7a397ad354217562c307a977c4ab44966af))
+
 ## [0.4.0](https://github.com/prantlf/v-debug/compare/v0.3.6...v0.4.0) (2025-07-31)
 
 ### Features
