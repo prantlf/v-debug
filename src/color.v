@@ -97,7 +97,7 @@ fn get_color(name string) string {
 		hash = ((hash << 5) - hash) + c
 	}
 
-	mut colors := &string(0)
+	mut colors := unsafe { &string(0) }
 	mut color_count := 0
 	colors = if color_support == 1 {
 		color_count = few_colors.len
