@@ -328,7 +328,7 @@ pub fn (d &Debug) enable() {
 }
 ```
 
-This isn't save in multi-threaded context. Using the same logging object in multiple threads might not be reliable. On the other hand, separate threads should use their own loggers, because their log entries wouldn't be distinguishable, and thus the risk of something broken because of this trick is negligible.
+This isn't safe in multi-threaded context. Using the same logging object in multiple threads might not be reliable. On the other hand, separate threads should use their own loggers, because their log entries wouldn't be distinguishable, and thus the risk of something broken because of this trick is negligible.
 
 ## Contributing
 

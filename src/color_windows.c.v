@@ -12,7 +12,7 @@ module debug
 fn is_win10_or_greater() bool {
 	mh := C.GetModuleHandleA(c'kernel32.dll')
 	if mh != C.NULL {
-		pa := C.GetProcAddress(mh, 'GetSystemCpuSetInformation'.str)
+		pa := C.GetProcAddress(mh, c'GetSystemCpuSetInformation')
 		return unsafe { pa != nil }
 	}
 	return false
